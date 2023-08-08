@@ -50,10 +50,7 @@ const poolConfig = {
     min: 0,
     idleTimeoutMillis: 30000
   },
-  options: {
-    encrypt: cfgSafetyOptions.get('encrypt'),
-    trustServerCertificate: cfgSafetyOptions.get('trustServerCertificate')
-  }
+  options: cfgSafetyOptions
 };
 
 const placeholderPrefix = 'ph_';
@@ -258,7 +255,7 @@ async function insertChangesAsync(ctx, tableChanges, startIndex, objChanges, doc
   const msSqlParametersCapacity = 1000;
   const parametersInQuery = 8;
   const rowsLimit = Math.trunc(msSqlParametersCapacity / parametersInQuery);
-  
+
   let rowCounts = 1;
   let currentIndex = startIndex;
   for (; currentIndex < objChanges.length && rowCounts <= rowsLimit; ++currentIndex, ++index) {
